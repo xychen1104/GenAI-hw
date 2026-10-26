@@ -1,0 +1,8 @@
+module mux2_1(input wire in1, input wire in2, input wire select, output wire out);
+    wire not_select;
+    wire and_in1, and_in2;
+    assign not_select = ~select;
+    assign and_in1 = in1 & not_select;
+    assign and_in2 = in2 & select;
+    assign out = and_in1 | and_in2;
+endmodule
