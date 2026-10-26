@@ -1,0 +1,21 @@
+{
+    "tests": [
+        {"a": 8, "b": 4, "cin": 1, "reason": "Toggle cin fall and clear carries"},
+        {"a": 255, "b": 0, "cin": 1, "reason": "Toggle top-level b and sum"},
+        {"a": 240, "b": 15, "cin": 0, "reason": "Toggle carry propagation across 4-bit boundary"},
+        {"a": 1, "b": 1, "cin": 1, "reason": "Test full adder inputs 11, toggle carry paths"},
+        {"a": 7, "b": 8, "cin": 1, "reason": "Exercise half-adder XOR input 01"},
+        {"a": 1, "b": 3, "cin": 0, "reason": "Toggle carry generation at third bit"},
+        {"a": 1, "b": 127, "cin": 1, "reason": "Test propagation through all low bits"},
+        {"a": 3, "b": 192, "cin": 0, "reason": "Toggle ha1 XOR input 01 in high bits"},
+        {"a": 31, "b": 224, "cin": 0, "reason": "Explore mixing patterns for 4-to-4 propagation"},
+        {"a": 8, "b": 249, "cin": 1, "reason": "Trigger specific carry propagations"},
+        {"a": 64, "b": 64, "cin": 1, "reason": "Toggle XOR and AND combinations in middle bits"},
+        {"a": 14, "b": 14, "cin": 0, "reason": "Toggle sum generation with middle values"},
+        {"a": 127, "b": 128, "cin": 0, "reason": "Toggle ultimate carry over through middle bits"},
+        {"a": 16, "b": 239, "cin": 0, "reason": "Complete ci0 low carry path"},
+        {"a": 225, "b": 60, "cin": 1, "reason": "Check middle section XOR path variances"},
+        {"a": 66, "b": 129, "cin": 0, "reason": "Toggle low half-adder transitions"},
+        {"a": 2, "b": 3, "cin": 0, "reason": "Complete coverage in low fa instances"}
+    ]
+}

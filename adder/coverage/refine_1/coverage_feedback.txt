@@ -1,0 +1,27 @@
+
+Baseline passes 8 functional tests.
+
+Instance-level coverage:
+Line: 40/40
+Toggle 0->1: 141/189
+Toggle 1->0: 137/189
+Logic: 98/136
+
+Specific uncovered targets:
+- Top-level b and sum have bits missing both toggle directions.
+- Top-level cin has a rising transition but no falling transition.
+- carry1 never toggles in several full_adder instances.
+- low_adder.fa0.carry2 never toggles.
+- Several ha1 instances miss XOR input 11 and AND input 11.
+- Several ha1 instances also miss XOR input 01.
+- Several ha2 instances miss XOR inputs 01 or 10.
+
+Generate targeted external input sequences that exercise:
+- Both directions on every bit of a, b, and sum.
+- Carry generation at each bit.
+- Carry propagation through each bit and the 4-bit boundary.
+- cin rising and falling.
+- Both half-adder carry paths and missing XOR combinations.
+
+Use ordered transitions with clearing vectors where useful.
+Do not use exhaustive enumeration or random testing.

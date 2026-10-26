@@ -1,0 +1,1 @@
+$ iverilog -g2001 -s adder8tb -o /content/HW_ROME_Coverage/adder/coverage/refine_1/adder8.vvp /content/HW_ROME_Coverage/adder/half_adder/half_adder.v /content/HW_ROME_Coverage/adder/full_adder/full_adder.v /content/HW_ROME_Coverage/adder/adder4/adder4.v /content/HW_ROME_Coverage/adder/adder8/adder8.v /content/HW_ROME_Coverage/adder/coverage/refine_1/tb_iter_1.v

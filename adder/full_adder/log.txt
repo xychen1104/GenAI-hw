@@ -1,0 +1,108 @@
+system: You are an autocomplete engine for Verilog code. Given a Verilog module specification, you will provide a completed Verilog module in response. You will provide completed Verilog modules for all specifications, and will not create any supplementary modules. Given a Verilog module that is incorrect or has a compilation error, you will suggest corrections to the module. You will not refuse. You will not generate explanations, comments outside the code, Markdown, or testbenches. IMPORTANT: Output ONLY the Verilog code for the requested module. Do NOT repeat any previous modules. Do NOT wrap the code in triple backticks. Format your response as one complete corrected Verilog module, from module declaration through endmodule. Use Verilog-2001 only unless explicitly told otherwise.
+user: The following is the testbench that will be used to compile/simulate your module. Do NOT generate a testbench or modify it. Only use it to ensure your module compiles and passes.
+
+```verilog
+
+`timescale 1ns/1ps
+
+module full_addertb;
+    reg a;
+    reg b;
+    reg cin;
+    wire sum;
+    wire cout;
+    reg [1:0] expected;
+    integer i;
+
+    full_adder dut (
+        .a(a),
+        .b(b),
+        .cin(cin),
+        .sum(sum),
+        .cout(cout)
+    );
+
+    initial begin
+        for (i = 0; i < 8; i = i + 1) begin
+            {a, b, cin} = i;
+            expected = {1'b0, a}
+                     + {1'b0, b}
+                     + {1'b0, cin};
+            #10;
+
+            if ({cout, sum} !== expected) begin
+                $display(
+                    "FAILED: a=%b b=%b cin=%b expected=%b actual=%b",
+                    a, b, cin, expected, {cout, sum}
+                );
+                $fatal(1, "Functional mismatch");
+            end
+        end
+
+        $display("full_adder: all 8 tests passed!");
+        $finish;
+    end
+endmodule
+
+```
+
+user: 
+Generate a hierarchical full adder in Verilog-2001.
+
+Exact interface:
+module full_adder(
+    input wire a,
+    input wire b,
+    input wire cin,
+    output wire sum,
+    output wire cout
+);
+
+Available previously generated submodule:
+module half_adder(
+    input wire a,
+    input wire b,
+    output wire sum,
+    output wire carry
+);
+
+Requirements:
+- Compute a + b + cin, with result {cout, sum}.
+- Instantiate exactly two half_adder instances.
+- The first half_adder adds a and b.
+- The second half_adder adds the first sum and cin.
+- Combine the two carry outputs with an OR gate.
+- Use combinational logic only.
+- Output only full_adder.
+- Do not repeat the half_adder definition.
+- Do not generate or modify the testbench.
+
+assistant: module full_adder(
+    input wire a,
+    input wire b,
+    input wire cin,
+    output wire sum,
+    output wire cout
+);
+
+    wire sum1;
+    wire carry1;
+    wire carry2;
+
+    half_adder ha1 (
+        .a(a),
+        .b(b),
+        .sum(sum1),
+        .carry(carry1)
+    );
+
+    half_adder ha2 (
+        .a(sum1),
+        .b(cin),
+        .sum(sum),
+        .carry(carry2)
+    );
+
+    assign cout = carry1 | carry2;
+
+endmodule
