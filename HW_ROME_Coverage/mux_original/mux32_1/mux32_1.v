@@ -1,0 +1,9 @@
+module mux32_1(input [4:0] sel, input [31:0] in, output wire out);
+
+    wire out0, out1;
+
+    mux16_1 mux1 (.sel(sel[3:0]), .in(in[15:0]), .out(out0));
+    mux16_1 mux2 (.sel(sel[3:0]), .in(in[31:16]), .out(out1));
+    mux2_1 mux3 (.in1(out0), .in2(out1), .select(sel[4]), .out(out));
+
+endmodule

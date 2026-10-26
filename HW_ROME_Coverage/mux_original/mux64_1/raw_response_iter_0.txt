@@ -1,0 +1,24 @@
+module mux64_1(input [5:0] sel, input [63:0] in, output wire out);
+
+  wire out_low, out_high;
+
+  mux32_1 low_mux(
+    .sel  (sel[4:0]),
+    .in   (in[31:0]),
+    .out  (out_low)
+  );
+
+  mux32_1 high_mux(
+    .sel  (sel[4:0]),
+    .in   (in[63:32]),
+    .out  (out_high)
+  );
+
+  mux2_1 final_mux(
+    .in1  (out_low),
+    .in2  (out_high),
+    .select (sel[5]),
+    .out  (out)
+  );
+
+endmodule
