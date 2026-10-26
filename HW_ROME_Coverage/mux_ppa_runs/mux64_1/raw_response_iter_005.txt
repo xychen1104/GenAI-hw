@@ -1,0 +1,14 @@
+module mux64_1(input [5:0] sel, input [63:0] in, output out);
+  wire [3:0] out_layer1;
+  wire [1:0] out_layer2;
+  
+  assign out_layer1[0] = (sel[2] == 1'b0) ? in[sel[1:0]] : in[sel[1:0] + 4];
+  assign out_layer1[1] = (sel[2] == 1'b0) ? in[sel[1:0] + 8] : in[sel[1:0] + 12];
+  assign out_layer1[2] = (sel[2] == 1'b0) ? in[sel[1:0] + 16] : in[sel[1:0] + 20];
+  assign out_layer1[3] = (sel[2] == 1'b0) ? in[sel[1:0] + 24] : in[sel[1:0] + 28];
+  
+  assign out_layer2[0] = (sel[3] == 1'b0) ? out_layer1[sel[2]] : out_layer1[sel[2] + 2];
+  assign out_layer2[1] = (sel[3] == 1'b0) ? out_layer1[sel[2] + 4] : out_layer1[sel[2] + 6];
+  
+  assign out = (sel[5] == 1'b0) ? out_layer2[sel[4]] : out_layer2[sel[4] + 2];
+endmodule

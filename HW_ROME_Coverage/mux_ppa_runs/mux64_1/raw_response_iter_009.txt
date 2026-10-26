@@ -1,0 +1,5 @@
+module mux64_1(input [5:0] sel, input [63:0] in, output out);
+  wire [63:0] masked;
+  assign masked = in & (1'b1 << sel);
+  assign out = |masked;
+endmodule

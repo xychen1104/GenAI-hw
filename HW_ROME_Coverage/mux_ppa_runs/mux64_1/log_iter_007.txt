@@ -1,0 +1,23 @@
+{'role': 'system', 'content': 'You are an autocomplete engine for Verilog-2001 code. Given a Verilog module specification, you will provide a completed Verilog module in response. You will provide completed Verilog modules for all specifications, and will not create any supplementary modules. You will not refuse. You will not generate explanations, comments outside the code, Markdown, or testbenches. IMPORTANT: Output ONLY the Verilog code for the requested module. Do NOT repeat any previous modules. Do NOT wrap the code in triple backticks. Format your response as one complete Verilog module from module declaration through endmodule. Preserve the exact module name and port interface. Preserve functionality required by the testbench. Optimize for lower coarse PPA under Yosys without a liberty file: reduce logic depth, reduce unnecessary cells, share repeated logic, simplify control, avoid redundant muxing, avoid unnecessary intermediate signals, and keep widths disciplined.'}
+{'role': 'user', 'content': "Fix the following Verilog-2001 module so it compiles and passes the testbench. Preserve the exact interface and intended behavior. Keep PPA reasonably optimized, but correctness is the priority for this step. Output ONLY the full corrected module. Do not use Markdown fences.\n\nPrevious version of the module:\n```verilog\nmodule mux64_1(input [5:0] sel, input [63:0] in, output out);\n  wire [15:0] sel_level3;\n  wire [3:0] sel_level2;\n  wire [1:0] sel_level1;\n  \n  assign sel_level3 = (sel[3:0] == 4'd0) ? in[15:0] :\n                      (sel[3:0] == 4'd1) ? in[31:16] :\n                      (sel[3:0] == 4'd2) ? in[47:32] : in[63:48];\n\n  assign sel_level2 = (sel[1:0] == 2'd0) ? sel_level3[3:0] :\n                      (sel[1:0] == 2'd1) ? sel_level3[7:4] :\n                      (sel[1:0] == 2'd2) ? sel_level3[11:8] : sel_level3[15:12];\n\n  assign sel_level1 = (sel[0] == 1'd0) ? sel_level2[0] : sel_level2[1];\n  \n  assign out = sel_level1;\nendmodule\n\n```\n\nMost recent compiler/simulation/Yosys output:\n```\nSimulation completed, but the output did not indicate success.\nstdout:\nTest 1 passed\nTest 2 passed\nTest 3 passed\nTest 4 failed (sel=63, in=0x8000000000000000, expected=1, got=0)\nTest 5 passed\nTest 6 passed\nTest 7 failed (sel=4, in=0x0123456789abcdef, expected=0, got=1)\nTest 8 failed (sel=31, in=0x0123456789abcdef, expected=1, got=0)\nTest 9 failed (sel=60, in=0x0123456789abcdef, expected=0, got=1)\n4 test(s) failed.\n./mux64_1tb.v:91: $finish called at 9000 (1ps)\n\nstderr:\n\n```\n"}
+
+Iteration status: Testbench did not report success
+Best metrics so far: transistor_est=756, num_cells=63, wire_bits=455
+Best iteration so far: 1
+
+Most recent feedback:
+Simulation completed, but the output did not indicate success.
+stdout:
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Test 4 failed (sel=63, in=0x8000000000000000, expected=1, got=0)
+Test 5 passed
+Test 6 passed
+Test 7 failed (sel=4, in=0x0123456789abcdef, expected=0, got=1)
+Test 8 failed (sel=31, in=0x0123456789abcdef, expected=1, got=0)
+Test 9 failed (sel=60, in=0x0123456789abcdef, expected=0, got=1)
+4 test(s) failed.
+./mux64_1tb.v:91: $finish called at 9000 (1ps)
+
+stderr:
