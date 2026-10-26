@@ -1,0 +1,10 @@
+module mux4_1(input [1:0] sel, input [3:0] in, output out);
+  wire sel0n, sel1n, a, b, c, d;
+  not (sel0n, sel[0]);
+  not (sel1n, sel[1]);
+  and (a, in[0], sel0n, sel1n);
+  and (b, in[1], sel[0], sel1n);
+  and (c, in[2], sel0n, sel[1]);
+  and (d, in[3], sel[0], sel[1]);
+  or (out, a, b, c, d);
+endmodule
