@@ -1,0 +1,4 @@
+$ vvp /content/HW_ROME_Coverage/adder/coverage/refine_1/adder8.vvp
+VCD info: dumpfile adder8.vcd opened for output.
+adder8: all 25 tests passed!
+/content/HW_ROME_Coverage/adder/coverage/refine_1/tb_iter_1.v:81: $finish called at 250000 (1ps)
