@@ -1,0 +1,11 @@
+module mux8_1(input [2:0] sel, input [7:0] in, output out);
+    wire [1:0] sel_lsb = {1'b0, sel[0]};
+    wire [3:0] sel_msb = {{2{sel[2]}}, sel[1]};
+    wire mux1_out = sel_lsb[0] ? in[1] : in[0];
+    wire mux2_out = sel_lsb[0] ? in[3] : in[2];
+    wire mux3_out = sel_lsb[0] ? in[5] : in[4];
+    wire mux4_out = sel_lsb[0] ? in[7] : in[6];
+    wire mux5_out = sel_msb[0] ? mux2_out : mux1_out;
+    wire mux6_out = sel_msb[0] ? mux4_out : mux3_out;
+    assign out = sel_msb[1] ? mux6_out : mux5_out;
+endmodule

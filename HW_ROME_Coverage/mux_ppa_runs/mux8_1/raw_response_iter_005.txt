@@ -1,0 +1,11 @@
+module mux8_1(input [2:0] sel, input [7:0] in, output out);
+    wire [1:0] a, b;
+    wire sel2, sel1;
+
+    assign sel2 = sel[2];
+    assign a = sel[1] ? {in[3], in[2]} : {in[7], in[6]};
+    assign b = sel[1] ? {in[1], in[0]} : {in[5], in[4]};
+    assign sel1 = sel[0] ? b[0] : a[0];
+
+    assign out = sel2 ? sel1 : (sel[0] ? b[1] : a[1]);
+endmodule
